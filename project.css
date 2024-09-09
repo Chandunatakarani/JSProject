@@ -1,0 +1,125 @@
+.header{
+    display:grid;
+    grid-template-columns: auto auto;
+    justify-content:space-between;
+    background-color: orange;
+    margin-top: -8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    color:white;
+    position: relative;
+    z-index: 1;
+}
+.logo{
+    margin-left: 201px;
+}
+.hamburger{
+    margin-top:17px;
+    margin-right:200px;
+}
+.backimg{
+    background-image:url('../images/Bgimage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: -8px;
+    margin-right: -8px;
+    position:relative;
+}
+.search{
+    padding:20%;
+    margin-left: 363px;
+    color:white;
+}
+#scr{
+    padding: 13px;
+    margin-top: 50px;
+    border-radius: 32px;
+    font-size: 26px;
+    margin-left:-90px; 
+} 
+#icon{
+    padding: 19px 23px;
+    border-radius:32px;
+    background-color: orange;
+    color:white;
+}
+.imagetext{
+    position: absolute;
+    margin-top: -227px;
+    margin-left: 600px;
+    color:white;
+    h1{
+    
+        margin-left: -116px;
+        font-size: xx-large;
+    }
+    
+}
+#beef{
+    width:100px; 
+    height:17px;
+     margin-left:-206px;
+     background-color: orange;
+     color:white;
+     border-color: orange;
+     border-radius: 10px;
+}
+.api{
+    display:grid;
+    grid-template-columns: repeat(8,1fr);
+    justify-items: center;
+    img{
+        width:150%;
+        background-color: white;
+        border:1px solid white;
+    }
+    column-gap: 20px;
+    row-gap: 20px;
+}
+    #icon22 {
+        font-size: 24px;
+        cursor: pointer;
+      }
+#drop  {
+    display: none;
+    list-style: none;
+    position: absolute;
+    top: 50px; 
+    right: 10px; 
+    background-color: white;
+    border: 1px solid black;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    li{
+        list-style: none;
+
+    }
+    li:hover{
+        color:orange;
+        
+
+    }
+    
+    }
+#btn1{
+    margin-top: 2px;
+    margin-left: -68px;
+    margin-bottom: -26px;
+    position: absolute;
+    border-radius: 10px;
+    color: orange;
+    
+}
+.singleitem{
+    border:1px red;
+}
+    
+
+
+/* .button{
+    display:grid;
+    grid-template-columns: repeat(5,1fr);
+    width:15%;
+} */
+
