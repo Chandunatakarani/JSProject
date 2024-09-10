@@ -144,7 +144,29 @@
     font-size: larger;
     text-decoration: underline;
 }
-    
+.meal {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+.meal img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+.meal h3 {
+    font-size: 20px;
+    margin-top: 10px;
+    color: orange;
+}
+.meal p {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #333;
+}
+
 
 
 
