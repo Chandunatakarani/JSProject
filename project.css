@@ -55,6 +55,9 @@
     }
     
 }
+.img{
+    background-color: white;
+}
 #beef{
     width:100px; 
     height:17px;
@@ -63,18 +66,24 @@
      color:white;
      border-color: orange;
      border-radius: 10px;
+     z-index: 1;
 }
 .api{
     display:grid;
     grid-template-columns: repeat(8,1fr);
     justify-items: center;
+    column-gap: 20px;
+    row-gap: 20px;
+    margin-left:100px;
     img{
         width:150%;
         background-color: white;
         border:1px solid white;
     }
-    column-gap: 20px;
-    row-gap: 20px;
+   
+}
+.api img:hover{
+    transform: scale(1.2);
 }
     #icon22 {
         font-size: 24px;
@@ -116,6 +125,24 @@
 }
 #clickmealimg{
     width:200px;
+}
+#nomeal{
+    color:red;
+    margin-left:590px;
+}
+.bor{
+    border: 1px solid white;
+    width: 203px;
+    height: 238px;
+
+}
+#ssd{
+    display: grid;
+    grid-template-columns:repeat(6,1fr);
+}
+#caps{
+    font-size: larger;
+    text-decoration: underline;
 }
     
 

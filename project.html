@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body style="background-color: lightgray;">
     <div class="header">
         <div class="logo">
             <h3>MEAL FINDER</h3>
@@ -40,7 +40,7 @@
             <hr>
             <li class="classitem" click-value="chicken">Chicken</li>
             <hr>
-            <li class="classitem" click-value="dessert">Dessert</li>
+            <li class="classitem" click-value="Dessert">Dessert</li>
             <hr>
             <li class="classitem" click-value="lamb">Lamb</li>
             <hr>
@@ -70,27 +70,27 @@
         <h1 id="meal" style="display:none;">Meals</h1>
 
         <p id="searchitem"></p>
+        <p id="instructions"></p>
         <p id="ssd"></p>
+        
     </section>
     <h1>CATEGORIES</h1>
 
-    <section class="api" style="background-color: aliceblue;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-        <img class="image" style="background-color: white;">
-
-
+    <section class="api">
+        <img class="image" data-clickid="beef">
+        <img class="image" data-clickid="chicken">
+        <img class="image" data-clickid="dessert">
+        <img class="image" data-clickid="lamb">
+        <img class="image" data-clickid="miscellaneous">
+        <img class="image" data-clickid="pasta">
+        <img class="image" data-clickid="pork">
+        <img class="image" data-clickid="seafood">
+        <img class="image" data-clickid="side">
+        <img class="image" data-clickid="starter">
+        <img class="image" data-clickid="vegan">
+        <img class="image" data-clickid="vegetarian">
+        <img class="image" data-clickid="breakfast">
+        <img class="image" data-clickid="goat">
 
         <script>
 
@@ -124,7 +124,6 @@
             searchButton.addEventListener('click', () => {
                 let searchtype = document.getElementById('scr').value
                 console.log(searchtype)
-
                 fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchtype}`).then(res => res.json())
                     .then(data => {
 
@@ -140,22 +139,36 @@
                             document.getElementById('searchitem').innerHTML = html
                         }
                         else {
-                            document.getElementById('searchitem').innerHTML = '<p style="color:red;">no meals found</P>'
+                            document.getElementById('searchitem').innerHTML = '<h2 id="nomeal">No Meals found</h2>'
                         }
                     })
             })
            const clinge= document.querySelectorAll('.classitem')
            clinge.forEach(item=>{
             item.addEventListener('click',()=>{
-                let selected=item.getAttribute('click-value');
+                let selected=item.getAttribute('click-value').toUpperCase()
                 fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${selected}`)
                 .then(res=>res.json())
                 .then(data=>{
+                    let inst=''
                     let output=''
                     if(data.meals){
+
+ 
+                        inst+=`
+                            <p id="caps">${selected}</p>
+                            <p>${data.meals[0].strInstructions}</p>
+                           `;
                         data.meals.forEach(meal=>{
+                          
+                            
                             output+=`
+                            <div class="bor">
+                               
                             <img id="clickmealimg"src="${meal.strMealThumb}">
+                            <p id=inst>${meal.strMeal}</p>
+                            </div>
+
 
                             `
 
@@ -165,6 +178,7 @@
                     else{
                         output='<p>no images found</p>'
                     }
+                    document.getElementById('instructions').innerHTML=inst
                     document.getElementById('ssd').innerHTML=output  
                     
                   
@@ -172,8 +186,16 @@
                 })
             })
            })
-
-
+          const seper=document.querySelectorAll('.api')
+          seper.forEach(item=>{
+            item.addEventListener('click',()=>{
+                let sele=item.getAttribute('data-clickid')
+                fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${sele}`)
+                .then(res=>res.json())
+                .then(data=>console.log(data))
+            })
+          })
+       
 
         </script>
 
