@@ -36,40 +36,41 @@
         <ul>
             <i style="margin-left:120px;" id="cancel" class="fa-solid fa-xmark"></i>
 
-            <li>Beef</li>
+            <li class="classitem" click-value="beef">Beef</li>
             <hr>
-            <li>Chicken</li>
+            <li class="classitem" click-value="chicken">Chicken</li>
             <hr>
-            <li>Dessert</li>
+            <li class="classitem" click-value="dessert">Dessert</li>
             <hr>
-            <li>Lamb</li>
+            <li class="classitem" click-value="lamb">Lamb</li>
             <hr>
-            <li>Miscellaneous</li>
+            <li class="classitem" click-value="miscellaneous">Miscellaneous</li>
             <hr>
-            <li>Pasta</li>
+            <li class="classitem" click-value="pasta">Pasta</li>
             <hr>
-            <li>Pork</li>
+            <li class="classitem" click-value="pork">Pork</li>
             <hr>
-            <li>Seafood</li>
+            <li class="classitem" click-value="seafood">Seafood</li>
             <hr>
-            <li>Side</li>
+            <li class="classitem" click-value="side">Side</li>
             <hr>
-            <li>Starter</li>
+            <li class="classitem" click-value="starter">Starter</li>
             <hr>
-            <li>Vegan</li>
+            <li class="classitem" click-value="vegan">Vegan</li>
             <hr>
-            <li>Vegetarian</li>
+            <li class="classitem" click-value="vegetarian">Vegetarian</li>
             <hr>
-            <li>Breakfast</li>
+            <li class="classitem" click-value="breakfast">Breakfast</li>
             <hr>
-            <li>Goat</li>
+            <li class="classitem" click-value="goat">Goat</li>
             <hr>
         </ul>
     </div>
     <section class="singleitem">
-        <h1 id="meal"style="display:none;">Meals</h1>
-        
+        <h1 id="meal" style="display:none;">Meals</h1>
+
         <p id="searchitem"></p>
+        <p id="ssd"></p>
     </section>
     <h1>CATEGORIES</h1>
 
@@ -99,52 +100,34 @@
             document.getElementById('cancel').addEventListener('click', () => {
                 document.getElementById('drop').style.display = 'none'
             })
-  
-               fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
-               .then(res=>res.json())
-               .then(data =>{
-               let chandu=''
-               data.categories.forEach(category => {
-                
-               
-               chandu +=`
+
+            fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+                .then(res => res.json())
+                .then(data => {
+                    let chandu = ''
+                    data.categories.forEach(category => {
+
+
+                        chandu += `
                <img src="${category.strCategoryThumb}" alt="thumbnail">
              <button id="beef">${category.strCategory}</button>
                `
-            });
-            
-              let chandu1= document.getElementsByClassName('api')
-              if(chandu1.length>0){
-                chandu1[0].innerHTML=chandu
-              }
-               })
-            // let photo = [];
-            // photo.push(fetch('https://www.themealdb.com/api/json/v1/1/categories.php').then(res => res.json()))
-            // Promise.all(photo)
-            //     .then(output => {
-            //         let chandu = output[0].categories
-            //         chandu.forEach((category, index) => {
-            //             if (index < document.getElementsByClassName('image').length) {
+                    });
 
-            //                 document.getElementsByClassName('image')[index].setAttribute('src', category.strCategoryThumb)
-            //                 // document.getElementsByClassName('image')[index].setAttribute('', category.strCategoryThumb)
-
-                            
-
-
-            //             }
-
-            //         });
-            //     })
+                    let chandu1 = document.getElementsByClassName('api')
+                    if (chandu1.length > 0) {
+                        chandu1[0].innerHTML = chandu
+                    }
+                });
 
             let searchButton = document.getElementById('icon');
             searchButton.addEventListener('click', () => {
-                           let searchtype = document.getElementById('scr').value
+                let searchtype = document.getElementById('scr').value
                 console.log(searchtype)
 
                 fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchtype}`).then(res => res.json())
                     .then(data => {
-                      
+
                         if (data.meals && data.meals.length > 0) {
                             let html = data.meals.map(meal => `
                     <img  style="width:200px;" src="${meal.strMealThumb}">
@@ -152,21 +135,43 @@
                     <h5>${meal.strArea}</h5>
                     <h4>${meal.strMeal}</h4>
                     `).join('')
-                            
-                        
+
+
                             document.getElementById('searchitem').innerHTML = html
                         }
-                        else{
-                            document.getElementById('searchitem').innerHTML='<p style="color:red;">no meals found</P>'
+                        else {
+                            document.getElementById('searchitem').innerHTML = '<p style="color:red;">no meals found</P>'
                         }
                     })
+            })
+           const clinge= document.querySelectorAll('.classitem')
+           clinge.forEach(item=>{
+            item.addEventListener('click',()=>{
+                let selected=item.getAttribute('click-value');
+                fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${selected}`)
+                .then(res=>res.json())
+                .then(data=>{
+                    let output=''
+                    if(data.meals){
+                        data.meals.forEach(meal=>{
+                            output+=`
+                            <img id="clickmealimg"src="${meal.strMealThumb}">
 
-
+                            `
 
                         })
-
-
-
+                    
+                    }
+                    else{
+                        output='<p>no images found</p>'
+                    }
+                    document.getElementById('ssd').innerHTML=output  
+                    
+                  
+                    
+                })
+            })
+           })
 
 
 
