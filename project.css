@@ -166,6 +166,20 @@
     margin-top: 5px;
     color: #333;
 }
+#chick{
+    display:grid;
+    grid-template-columns: repeat(10,1fr);
+    margin-left: 47px;
+}
+#chicks{
+    width:200px;
+}
+#chickbtn{
+    /* position: absolute; */
+    margin-top: 204px;
+    font-size: small;
+    margin-left: -155px;
+}
 
 
 

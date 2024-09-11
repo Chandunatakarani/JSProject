@@ -68,7 +68,7 @@
     </div>
     <section class="singleitem">
         <h1 id="meal" style="display:none;">Meals</h1>
-
+          <p id="chick"></p>
         <p id="searchitem"></p>
         <p id="instructions"></p>
         <p id="ssd"></p>
@@ -78,8 +78,8 @@
 
     <section class="api">
 
-        <!-- <img class="image" data-clickid="beef"> -->
-        <!-- <img class="image" data-clickid="chicken">
+        <img class="image" data-clickid="beef"> 
+         <img class="image" data-clickid="chicken">
         <img class="image" data-clickid="dessert">
         <img class="image" data-clickid="lamb">
         <img class="image" data-clickid="miscellaneous">
@@ -91,7 +91,7 @@
         <img class="image" data-clickid="vegan">
         <img class="image" data-clickid="vegetarian">
         <img class="image" data-clickid="breakfast">
-        <img class="image" data-clickid="goat"> -->
+        <img class="image" data-clickid="goat"> 
     </section>
         <script>
 
@@ -105,21 +105,42 @@
             fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
                 .then(res => res.json())
                 .then(data => {
-                    let chandu = ''
+                    let chandu = '';
                     data.categories.forEach(category => {
 
 
                         chandu += `
-               <img src="${category.strCategoryThumb}" alt="thumbnail">
+               <img src="${category.strCategoryThumb}" alt="thumbnail" class="image" data-clickid="${category.strCategory}">
              <button class="beef" data-clickid="${category.strCategory}" >${category.strCategory}</button>
                `
                     });
 
-                    let chandu1 = document.getElementsByClassName('api')
-                    if (chandu1.length > 0) {
-                        chandu1[0].innerHTML = chandu
-                    }
-                });
+                    let chandu1 = document.querySelector('.api')
+                   chandu1.innerHTML=chandu
+                                    
+               const images=document.querySelectorAll('.image')
+         images.forEach(image=>{
+            image.addEventListener('click',()=>{
+           const category=image.getAttribute('data-clickid')
+
+                  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+                    .then(res=>res.json())
+                    .then(data=>{
+                        cons=''
+                        data.meals.forEach(element=>{
+                            cons+=`
+                            <img id="chicks" src="${element.strMealThumb}">
+                            <p id="chickbtn">${element.strMeal}</p>
+                            `
+                        })
+                        document.getElementById('meal').style.display='block'
+                        document.getElementById('chick').innerHTML=cons
+            })
+                    
+            })
+         })
+                    
+    })
 
             let searchButton = document.getElementById('icon');
             searchButton.addEventListener('click', () => {
@@ -189,17 +210,11 @@
                 })
             })
            })
-         const seper=document.querySelectorAll('[data-clickid]')
-         seper.forEach(item=>{
-           const sele=item.getAttribute('data-clickid')
-            item.addEventListener('click',()=>{
-                    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${sele}`)
-                    .then(res=>res.json())
-                    .then(data=>console.log(data))
-                    
-            })
-         })
        
+      
+
+
+
 
         </script>
 
