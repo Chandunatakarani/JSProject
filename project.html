@@ -78,8 +78,8 @@
 
     <section class="api">
 
-        <img class="image" data-clickid="beef">
-        <img class="image" data-clickid="chicken">
+        <!-- <img class="image" data-clickid="beef"> -->
+        <!-- <img class="image" data-clickid="chicken">
         <img class="image" data-clickid="dessert">
         <img class="image" data-clickid="lamb">
         <img class="image" data-clickid="miscellaneous">
@@ -91,7 +91,7 @@
         <img class="image" data-clickid="vegan">
         <img class="image" data-clickid="vegetarian">
         <img class="image" data-clickid="breakfast">
-        <img class="image" data-clickid="goat">
+        <img class="image" data-clickid="goat"> -->
     </section>
         <script>
 
@@ -111,7 +111,7 @@
 
                         chandu += `
                <img src="${category.strCategoryThumb}" alt="thumbnail">
-             <button id="beef">${category.strCategory}</button>
+             <button class="beef" data-clickid="${category.strCategory}" >${category.strCategory}</button>
                `
                     });
 
@@ -189,21 +189,16 @@
                 })
             })
            })
-          const seper=document.querySelectorAll('.')
-          console.log(seper);
-          
-          seper.forEach(item=>{
+         const seper=document.querySelectorAll('[data-clickid]')
+         seper.forEach(item=>{
+           const sele=item.getAttribute('data-clickid')
             item.addEventListener('click',()=>{
-                // console.log(seper);
-                
-                let sele=item.getAttribute('data-clickid')
-                // console.log(sele);
-                
-                fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=beef`)
-                .then(res=>res.json())
-                .then(data=>console.log(data))
+                    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${sele}`)
+                    .then(res=>res.json())
+                    .then(data=>console.log(data))
+                    
             })
-          })
+         })
        
 
         </script>
