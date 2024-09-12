@@ -68,8 +68,9 @@
     </div>
     <section class="singleitem">
         <h1 id="meal" style="display:none;">Meals</h1>
+        <p id="secondnavbar"></p>
           <p id="chick"></p>
-        <p id="nextpage"><a href="project1.html" id="link"></a></p>
+        <a href="project1.html" id="link" target="_blank"><p id="nextpage"></p></a>
         <p id="searchitem"></p>
         <p id="instructions"></p>
         <p id="ssd"></p>
@@ -152,17 +153,78 @@
 
                                 let foodname=image.getAttribute('clicked')
                                 try{
-                                let response=await fetch(`http://www.themealdb.com/api/json/v1/1/search.php?s=${foodname}`)
+                                let response=await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodname}`)
                                 let data= await response.json()
                                 console.log(data)
                                 if(data.meals &&data.meals.length>0){
                                     let meal=data.meals[0];
                                 let content=`
-                                <h2>${meal.strMeal}</h2>
-                                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                                <p>${meal.strMealInstructions}</p>
+                                <div class="fit">
+                                <i class="fa-solid fa-house-chimney"></i>
+                                <i class="fa-solid fa-angles-right"></i>
+                                </div>
+                                <p id="meald" style="margin-left:-103px">MEAL DETAILS</p>
+                                <section class="sect">
+                                <div class="fing">
+                                
+                                <p id="singleword1">${meal.strMeal}</p>
+                                <div class="fing">
+                                <img id="singlechick" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                                </div>
+                                <div class="name">
+                                     <p>${meal.strMeal}</p>
+                                     <p>CATEGORY:${meal.strCategory}</p>
+                                     <p>SOURCE:${meal.strSource}</p>
+                                     <p>TAGS:${meal.Tags}</p>
+
+
+                                </div>
+                                    <p class="dist">INGREDIENTS:</p>
+
+                                <div class="ingre">
+                                <p>${meal.strIngredient1}</p>
+                                <p>${meal.strIngredient2}</p>
+                                <p>${meal.strIngredient3}</p>
+                                <p>${meal.strIngredient4}</p>
+                                <p>${meal.strIngredient5}</p>
+                                <p>${meal.strIngredient6}</p>
+                                <p>${meal.strIngredient7}</p>
+                                <p>${meal.strIngredient8}</p>
+                                <p>${meal.strIngredient9}</p>
+                                <p>${meal.strIngredient10}</p>
+                                <p>${meal.strIngredient11}</p>
+                                <p>${meal.strIngredient12}</p>
+                                <p>${meal.strIngredient13}</p>
+                                <p>${meal.strIngredient14}</p>
+                                </div>
+                                <p>Measure:</p>
+                                <div class="measure">
+                                    <p>${meal.strMeasure1}</p>
+                                    <p>${meal.strMeasure2}</p>
+                                    <p>${meal.strMeasure3}</p>
+                                    <p>${meal.strMeasure4}</p>
+                                    <p>${meal.strMeasure5}</p>
+                                    <p>${meal.strMeasure6}</p>
+                                    <p>${meal.strMeasure7}</p>
+                                    <p>${meal.strMeasure8}</p>
+                                </div>
+                                <p>INSTRUCTIONS:</P>
+                                <div class="instructions11">
+                                    <p>${meal.strInstructions}</p>
+                                    </div>
+                                </section>
+                                
+                                
                                 `;
-                                document.getElementById('nextpage').innerHTML=content
+                                document.getElementById('chick').innerHTML=content
+                              let chan=  document.createElement('div');
+                              chan.id="secnav";
+                              document.getElementById('secondnavbar').appendChild(chan);
+                              
+
+                                
+
+                                
                                 
                                 }
 

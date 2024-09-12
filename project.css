@@ -180,6 +180,54 @@
     font-size: small;
     margin-left: -155px;
 }
+#singlechick{
+    width:400px;
+}
+#secnav{
+    border:1px solid red;
+    padding:25px;
+    background-color: orange;
+}
+.fit{
+    margin-top:-55px;
+    margin-left:-37px;
+}
+#singleword1{
+    margin-top: -155px;
+    margin-left: -156px;
+}
+.fing{
+    margin-top:100px;
+}
+.name{
+    position: absolute;
+    margin-left: 429px;
+    margin-top: -421px;
+}
+.ingre{
+    position: absolute;
+    margin-left: 431px;
+    margin-top: -247px;
+    border: 1px solid blue;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 44px;
+    background-color: orange;
+    color:white;
+}
+.dist{
+    position: absolute;
+    margin-top: -279px; 
+    margin-left: 430px;
+}
+.measure{
+        display: grid;
+        grid-template-columns: auto auto;
+        border: 1px solid;
+        background-color: white;
+}
+
+
 
 
 
