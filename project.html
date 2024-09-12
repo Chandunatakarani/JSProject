@@ -69,6 +69,7 @@
     <section class="singleitem">
         <h1 id="meal" style="display:none;">Meals</h1>
           <p id="chick"></p>
+        <p id="nextpage"><a href="project1.html" id="link"></a></p>
         <p id="searchitem"></p>
         <p id="instructions"></p>
         <p id="ssd"></p>
@@ -102,6 +103,8 @@
                 document.getElementById('drop').style.display = 'none'
             })
 
+
+
             fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
                 .then(res => res.json())
                 .then(data => {
@@ -111,12 +114,14 @@
 
                         chandu += `
                <img src="${category.strCategoryThumb}" alt="thumbnail" class="image" data-clickid="${category.strCategory}">
-             <button class="beef" data-clickid="${category.strCategory}" >${category.strCategory}</button>
+             <button class="beef">${category.strCategory}</button>
                `
                     });
 
                     let chandu1 = document.querySelector('.api')
                    chandu1.innerHTML=chandu
+
+
                                     
                const images=document.querySelectorAll('.image')
          images.forEach(image=>{
@@ -129,18 +134,54 @@
                         cons=''
                         data.meals.forEach(element=>{
                             cons+=`
-                            <img id="chicks" src="${element.strMealThumb}">
+                            <img id="chicks" clicked="${element.strMeal}" src="${element.strMealThumb}">
                             <p id="chickbtn">${element.strMeal}</p>
                             `
                         })
                         document.getElementById('meal').style.display='block'
                         document.getElementById('chick').innerHTML=cons
+
+
+
+
+
+                        async function call(){
+                        let nextpage=document.querySelectorAll('#chicks');
+                        nextpage.forEach(image=>{
+                            image.addEventListener('click',async()=>{
+
+                                let foodname=image.getAttribute('clicked')
+                                try{
+                                let response=await fetch(`http://www.themealdb.com/api/json/v1/1/search.php?s=${foodname}`)
+                                let data= await response.json()
+                                console.log(data)
+                                if(data.meals &&data.meals.length>0){
+                                    let meal=data.meals[0];
+                                let content=`
+                                <h2>${meal.strMeal}</h2>
+                                <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                                <p>${meal.strMealInstructions}</p>
+                                `;
+                                document.getElementById('nextpage').innerHTML=content
+                                
+                                }
+
+                                } catch(e){
+                                    console.log('failed to fetch')
+                                }
+                            })
+                        })
+                    }
+                    call()
+
+
             })
                     
             })
          })
                     
     })
+  
 
             let searchButton = document.getElementById('icon');
             searchButton.addEventListener('click', () => {
