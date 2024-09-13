@@ -226,6 +226,16 @@
         border: 1px solid;
         background-color: white;
 }
+.spit{
+    
+    margin-top: 6px;
+    margin-left: -212px;
+    
+    position: absolute;
+}
+.ingredient{
+    margin-left: 20px;
+}
 
 
 
