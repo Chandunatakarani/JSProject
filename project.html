@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foodproject</title>
+    <link rel="stylesheet" href="project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+</head>
+
+<body style="background-color: lightgray;">
+    <div class="header">
+        <div class="logo">
+            <a href="project.html">
+                <h3 class="home">MEAL FINDER</h3>
+            </a>
+        </div>
+        <div class="hamburger">
+            <i id="icon22" class="fa-solid fa-bars" style="margin-top:10px;"></i>
+        </div>
+    </div>
+    <section class="backimg">
+        <div class="search">
+            <input type="search" placeholder="search recipies here..." id=scr>
+            <i class="fa-solid fa-magnifying-glass" style="border:1px solid red" id="icon"></i>
+
+        </div>
+        <div class="imagetext">
+            <h1>What are your favorite cuisines?</h1>
+            <h3>Personalize Your Experience</h3>
+        </div>
+
+    </section>
+    <div id="drop">
+
+        <ul>
+            <i style="margin-left:120px;" id="cancel" class="fa-solid fa-xmark"></i>
+
+            <li class="classitem" click-value="beef">Beef</li>
+            <hr>
+            <li class="classitem" click-value="chicken">Chicken</li>
+            <hr>
+            <li class="classitem" click-value="Dessert">Dessert</li>
+            <hr>
+            <li class="classitem" click-value="lamb">Lamb</li>
+            <hr>
+            <li class="classitem" click-value="miscellaneous">Miscellaneous</li>
+            <hr>
+            <li class="classitem" click-value="pasta">Pasta</li>
+            <hr>
+            <li class="classitem" click-value="pork">Pork</li>
+            <hr>
+            <li class="classitem" click-value="seafood">Seafood</li>
+            <hr>
+            <li class="classitem" click-value="side">Side</li>
+            <hr>
+            <li class="classitem" click-value="starter">Starter</li>
+            <hr>
+            <li class="classitem" click-value="vegan">Vegan</li>
+            <hr>
+            <li class="classitem" click-value="vegetarian">Vegetarian</li>
+            <hr>
+            <li class="classitem" click-value="breakfast">Breakfast</li>
+            <hr>
+            <li class="classitem" click-value="goat">Goat</li>
+            <hr>
+        </ul>
+    </div>
+    <section class="singleitem">
+        <h1 id="meal" style="display:none;">Meals</h1>
+        <p id="secondnavbar"></p>
+        <p id="chick"></p>
+        <p id="searchitem"></p>
+        <p id="instructions"></p>
+        <p id="ssd"></p>
+
+    </section>
+    <h1>CATEGORIES</h1>
+
+    <section class="api">
+
+        <img class="image" data-clickid="beef">
+        <img class="image" data-clickid="chicken">
+        <img class="image" data-clickid="dessert">
+        <img class="image" data-clickid="lamb">
+        <img class="image" data-clickid="miscellaneous">
+        <img class="image" data-clickid="pasta">
+        <img class="image" data-clickid="pork">
+        <img class="image" data-clickid="seafood">
+        <img class="image" data-clickid="side">
+        <img class="image" data-clickid="starter">
+        <img class="image" data-clickid="vegan">
+        <img class="image" data-clickid="vegetarian">
+        <img class="image" data-clickid="breakfast">
+        <img class="image" data-clickid="goat">
+    </section>
+    <script>
+
+        document.getElementById('icon22').addEventListener('click', () => {
+            document.getElementById('drop').style.display = 'block'
+        })
+        document.getElementById('cancel').addEventListener('click', () => {
+            document.getElementById('drop').style.display = 'none'
+        })
+
+
+
+        fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+            .then(res => res.json())
+            .then(data => {
+                let chandu = '';
+                data.categories.forEach(category => {
+
+
+                    chandu += `
+               <img src="${category.strCategoryThumb}" alt="thumbnail" class="image" data-clickid="${category.strCategory}">
+             <button id="beef">${category.strCategory}</button>
+               `
+                });
+
+                let chandu1 = document.querySelector('.api')
+                chandu1.innerHTML = chandu
+
+
+
+                const images = document.querySelectorAll('.image')
+                images.forEach(image => {
+                    image.addEventListener('click', () => {
+                        const category = image.getAttribute('data-clickid')
+
+                        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+                            .then(res => res.json())
+                            .then(data => {
+                                cons = ''
+                                data.meals.forEach(element => {
+                                    cons += `
+                            <img id="chicks" clicked="${element.strMeal}" src="${element.strMealThumb}">
+                            <p id="chickbtn">${element.strMeal}</p>
+                            `
+                                })
+                                document.getElementById('meal').style.display = 'block'
+                                document.getElementById('chick').innerHTML = cons
+
+
+
+
+
+                                async function call() {
+                                    let nextpage = document.querySelectorAll('#chicks');
+                                    nextpage.forEach(image => {
+                                        image.addEventListener('click', async () => {
+
+                                            let foodname = image.getAttribute('clicked')
+                                            try {
+                                                let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodname}`)
+                                                let data = await response.json()
+                                                console.log(data)
+                                                if (data.meals && data.meals.length > 0) {
+                                                    let meal = data.meals[0];
+                                                    let content = `
+                                <div class="fit">
+                                <i class="fa-solid fa-house-chimney"></i>
+                                <i class="fa-solid fa-angles-right"></i>
+                                </div>
+                                <p id="meald" style="margin-left:-103px">MEAL DETAILS</p>
+                                <section class="sect">
+                                <div class="fing">
+                                
+                                <p id="singleword1">${meal.strMeal}</p>
+                                <div class="fing">
+                                <img id="singlechick" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                                </div>
+                                <div class="name">
+                                     <p>${meal.strMeal}</p>
+                                     <p>CATEGORY:${meal.strCategory}</p>
+                                     <p>SOURCE:${meal.strSource}</p>
+                                     <p>TAGS:${meal.Tags}</p>
+
+
+                                </div>
+                                    <p class="dist">INGREDIENTS:</p>
+
+                                <div class="ingre">
+                                <p>${meal.strMeasure1}</p>
+                                <p>${meal.strIngredient2}</p>
+                                <p>${meal.strIngredient3}</p>
+                                <p>${meal.strIngredient4}</p>
+                                <p>${meal.strIngredient5}</p>
+                                <p>${meal.strIngredient6}</p>
+                                <p>${meal.strIngredient7}</p>
+                                <p>${meal.strIngredient8}</p>
+                                <p>${meal.strIngredient9}</p>
+                                <p>${meal.strIngredient10}</p>
+                                <p>${meal.strIngredient11}</p>
+                                <p>${meal.strIngredient12}</p>
+                                <p>${meal.strIngredient13}</p>
+                                <p>${meal.strIngredient14}</p>
+                                </div>
+                                <p>Measure:</p>
+                                <div class="measure">
+                                   <p class="ingredient">${meal.strIngredient1}</p><span><i class="spit" class="fa-solid fa-spoon"></i></span>
+                                    <p class="ingredient">${meal.strMeasure2}</p>
+                                    <p class="ingredient">${meal.strMeasure3}</p>
+                                    <p class="ingredient">${meal.strMeasure4}</p>
+                                    <p class="ingredient">${meal.strMeasure5}</p>
+                                    <p class="ingredient">${meal.strMeasure6}</p>
+                                    <p class="ingredient">${meal.strMeasure7}</p>
+                                    <p class="ingredient">${meal.strMeasure8}</p>
+                                </div>
+                                <p>INSTRUCTIONS:</P>
+                                <div class="instructions11">
+                                    <p>${meal.strInstructions}</p>
+                                    </div>
+                                </section>
+                                
+                                
+                                `;
+                                                    document.getElementById('chick').innerHTML = content
+                                                    let chan = document.createElement('div');
+                                                    chan.id = "secnav";
+                                                    document.getElementById('secondnavbar').appendChild(chan);
+
+
+
+
+
+
+                                                }
+
+                                            } catch (e) {
+                                                console.log('failed to fetch')
+                                            }
+                                        })
+                                    })
+                                }
+                                call()
+
+
+                            })
+
+                    })
+                })
+
+            })
+
+
+        let searchButton = document.getElementById('icon');
+        searchButton.addEventListener('click', () => {
+            let searchtype = document.getElementById('scr').value
+            console.log(searchtype)
+            fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchtype}`).then(res => res.json())
+                .then(data => {
+                    if (data.meals && data.meals.length > 0) {
+                        let html = data.meals.map(meal => `
+                           <div class="searched">
+                    <img  style="width:200px;" src="${meal.strMealThumb}">
+                    <button id="btn1">${meal.strCategory}</button>
+                    <h5>${meal.strArea}</h5>
+                    <h4>${meal.strMeal}</h4>
+                    </div>
+                    `).join('')
+
+
+
+                        document.getElementById('searchitem').innerHTML = html
+                    }
+                    else {
+                        document.getElementById('searchitem').innerHTML = '<h2 id="nomeal">No Meals found</h2>'
+                    }
+                })
+        })
+        const clinge = document.querySelectorAll('.classitem')
+        clinge.forEach(item => {
+            item.addEventListener('click', () => {
+                let selected = item.getAttribute('click-value').toUpperCase()
+                console.log(selected);
+
+                fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${selected}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        let inst = ''
+                        let output = ''
+                        if (data.meals) {
+
+
+                            inst += `
+                            <p id="caps">${selected}</p>
+                            <p>${data.meals[0].strInstructions}</p>
+                           `;
+                            data.meals.forEach(meal => {
+
+
+                                output += `
+                            <div class="bor">
+                               
+                            <img id="clickmealimg"src="${meal.strMealThumb}">
+                            <p id=inst>${meal.strMeal}</p>
+                            </div>
+
+
+                            `
+
+                            })
+
+                        }
+                        else {
+                            output = '<p>no images found</p>'
+                        }
+                        document.getElementById('instructions').innerHTML = inst
+                        document.getElementById('ssd').innerHTML = output
+
+
+
+                    })
+            })
+        })
+    </script>
+</body>
+
+</html>
